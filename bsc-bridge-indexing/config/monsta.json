@@ -1,0 +1,12 @@
+{
+  "network": "monsta",
+  "startBlock": "40000",
+  "omnibridge": "0xDF367bc1fEEe98D45B63A9a9003D84829A24D912",
+  "amb": "0x2fCc5B4AA3755c80Fa20AbAA507c1A5d668Aede4",
+  "bridges": [
+    {
+      "name": "MONI",
+      "address": "0xB7E8B8Dbcf40b5887cbBcf42F989153B4B397000"
+    }
+  ]
+}

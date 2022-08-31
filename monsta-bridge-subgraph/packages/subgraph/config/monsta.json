@@ -1,0 +1,12 @@
+{
+  "network": "monsta",
+  "startBlock": "0",
+  "omnibridge": "0x0000000000000000000000000000000000000000",
+  "amb": "0x46B8d34A89E9631ae3AF7230f319F119A96AF06F",
+  "bridges": [
+    {
+      "name": "xMONI",
+      "address": "0xCC353470f632aF83686e2bFeC8681103062B06B3"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "network": "monsta",
+  "startBlock": "10590093",
+  "omnibridge": "0x5137f6a5a78566582D31329B94285950CaA3Cd55",
+  "amb": "0x4C36d2919e407f0Cc2Ee3c993ccF8ac26d9CE64e",
+  "bridges": [
+    {
+      "name": "OWL",
+      "address": "0xed7e6720Ac8525Ac1AEee710f08789D02cD87ecB"
+    },
+    {
+      "name": "MOON",
+      "address": "0xE7228B4EBAD37Ba031a8b63473727f991e262dCd"
+    },
+    {
+      "name": "HNY",
+      "address": "0x81A4833B3A40E7c61eFE9D1a287343797993B1E8"
+    }
+  ]
+}

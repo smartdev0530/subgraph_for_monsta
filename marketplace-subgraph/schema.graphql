@@ -1,0 +1,112 @@
+
+type Monsta @entity{
+  id: ID!
+  token: BigInt!
+  txid: String!
+  timestamp: BigInt!
+  owner: Bytes!
+  genes: BigInt!
+  matron: Monsta
+  sire: Monsta
+  monstaEvents: [MonstaEvent!]! @derivedFrom(field: "token")
+  transferLog: [MonstaTransfer!]! @derivedFrom(field: "token")
+  monstaStatus: MonstaEventType
+  auctionStatus: MonstaEventType
+  lastSeller: Bytes
+  lastStartPrice: BigInt
+  lastEndPrice: BigInt
+  specialType: Int
+  classType: Int
+  birthStatus: Int
+  cloneUsage: Int
+  spb: Int
+  spa:Int
+  spl:Int
+  sph:Int
+  spf: Int
+  spt: Int
+  clsddb: Int
+  clsdda: Int
+  clsddl: Int
+  clsddh: Int
+  clsddf: Int
+  clsddt: Int
+}
+
+enum MonstaEventType {
+  Rebirthed
+  Retired
+  Evolved
+  UserAuctionCreated
+  UserAuctionCancelled
+  UserAuctionSuccessful
+  SystemAuctionCreated
+  SystemAuctionCancelled
+  SystemAuctionSuccessful
+}
+
+interface MonstaEvent {
+  id: ID!
+  token: Monsta!
+  timestamp: BigInt!
+  type: MonstaEventType!
+}
+
+type MonstaRebirth implements MonstaEvent @entity{
+  id: ID!
+  token: Monsta!
+  timestamp: BigInt!
+  type: MonstaEventType!
+  genes: BigInt!
+}
+
+type MonstaRetire implements MonstaEvent @entity {
+  id: ID!
+  token: Monsta!
+  timestamp: BigInt!
+  type: MonstaEventType!
+}
+
+type MonstaEvolve implements MonstaEvent @entity{
+  id: ID!
+  token: Monsta!
+  timestamp: BigInt!
+  type: MonstaEventType!
+  oldGenes: BigInt!
+  newGenes: BigInt!
+}
+
+type AuctionCreate implements MonstaEvent @entity {
+  id: ID!
+  token: Monsta!
+  timestamp: BigInt!
+  type: MonstaEventType!
+  startingPrice: BigInt!
+  endingPrice: BigInt!
+  duration: BigInt!
+  seller: Bytes!
+}
+
+type AuctionCancel implements MonstaEvent @entity {
+  id: ID!
+  token: Monsta!
+  timestamp: BigInt!
+  type: MonstaEventType!
+}
+
+type AuctionSucceed implements MonstaEvent @entity{
+  id: ID!
+  token: Monsta!
+  timestamp: BigInt!
+  type: MonstaEventType!
+  totalPrice: BigInt!
+  winner: Bytes!
+}
+
+type MonstaTransfer @entity{
+  id: ID!
+  token: Monsta!
+  timestamp: BigInt!
+  from: Bytes!
+  to: Bytes!
+}

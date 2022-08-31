@@ -1,0 +1,97 @@
+specVersion: 0.0.3
+description: marketplace subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: UserAuction
+    network: monsta
+    source:
+      address: '0x3Ae0496f97CB6A9776927986c6809ceF169f3099'
+      abi: MonstaAuction
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Monsta
+        - AuctionCreate
+        - AuctionSucceed
+        - AuctionCancel
+      abis:
+        - name: MonstaAuction
+          file: ./abis/MonstaAuction.json
+      eventHandlers:
+        - event: AuctionCreated(indexed uint256,uint256,uint256,uint256,address)
+          handler: handleUserAuctionCreated
+        - event: AuctionSuccessful(indexed uint256,uint256,address)
+          handler: handleUserAuctionSuccessful
+        - event: AuctionCancelled(indexed uint256)
+          handler: handleUserAuctionCancelled
+      file: ./src/mapping.ts
+
+
+  - kind: ethereum/contract
+    name: SystemAuction
+    network: monsta
+    source:
+      address: '0x8838D0946C1EFAe8E8077912bc29BC094EB8c9c3'
+      abi: MonstaAuction
+      startBlock: 100
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Monsta
+        - AuctionCreate
+        - AuctionSucceed
+        - AuctionCancel
+      abis:
+        - name: MonstaAuction
+          file: ./abis/MonstaAuction.json
+      eventHandlers:
+        - event: AuctionCreated(indexed uint256,uint256,uint256,uint256,address)
+          handler: handleSysAuctionCreated
+        - event: AuctionSuccessful(indexed uint256,uint256,address)
+          handler: handleSysAuctionSuccessful
+        - event: AuctionCancelled(indexed uint256)
+          handler: handleSysAuctionCancelled
+      file: ./src/mapping.ts
+
+
+  - kind: ethereum/contract
+    name: MonstaToken
+    network: monsta
+    source:
+      address: '0x168b09EeaF44aEe9aB574e6F0F8e9f423835FcC7'
+      abi: MonstaToken
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Monsta
+        - MonstaRebirth
+        - MonstaRetire
+        - MonstaEvolve
+        - MonstaTransfer
+      abis:
+        - name: MonstaToken
+          file: ./abis/MonstaToken.json
+      eventHandlers:
+        - event: MonstaSpawned(indexed uint256,indexed address,uint256,uint128,uint128)
+          handler: handleMonstaSpawned
+        - event: MonstaRebirthed(indexed uint256,uint256)
+          handler: handleMonstaRebirthed
+        - event: MonstaRetired(indexed uint256)
+          handler: handleMonstaRetired
+        - event: MonstaEvolved(indexed uint256,uint256,uint256)
+          handler: handleMonstaEvolved
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
+
+  

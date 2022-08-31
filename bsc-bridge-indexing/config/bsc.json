@@ -1,0 +1,12 @@
+{
+    "network": "bsc",
+    "startBlock": "40000",
+    "omnibridge": "0xDF367bc1fEEe98D45B63A9a9003D84829A24D912",
+    "amb": "0xe0BEFD4dB534738fE3a0Bcf761021EfbDB8Da73C",
+    "bridges": [
+      {
+        "name": "MONI",
+        "address": "0xc2827ACF14edcf1DF5001bcCa182e951955300e7"
+      }
+    ]
+  }

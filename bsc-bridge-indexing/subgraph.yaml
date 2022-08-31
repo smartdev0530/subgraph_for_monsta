@@ -1,0 +1,67 @@
+specVersion: 0.0.2
+description: Subgraph that indexes the omnibridge transfers
+repository: https://github.com/raid-guild/xdai-omnibridge
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: AMB
+    # prettier-ignore
+    network: bsctest
+    source:
+      abi: AMB
+      address: '0x5137f6a5a78566582D31329B94285950CaA3Cd55'
+      # prettier-ignore
+      startBlock: 13708944
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      abis:
+        - name: AMB
+          file: ./src/abis/amb.json
+      entities:
+        - UserRequest
+      eventHandlers:
+        - event: UserRequestForSignature(indexed bytes32,bytes)
+          handler: handleUserRequestForSignature
+        - event: UserRequestForAffirmation(indexed bytes32,bytes)
+          handler: handleUserRequestForAffirmation
+        - event: RelayedMessage(indexed address,indexed address,indexed bytes32,bool)
+          handler: handleRelayedMessage
+        - event: AffirmationCompleted(indexed address,indexed address,indexed bytes32,bool)
+          handler: handleAffirmationCompleted
+        - event: CollectedSignatures(address,bytes32,uint256)
+          handler: handleCollectedSignatures
+      file: ./src/mappings/amb.ts
+      language: wasm/assemblyscript
+  # prettier-ignore
+  - kind: ethereum/contract
+    # prettier-ignore
+    name: MONI
+    # prettier-ignore
+    network: bsctest
+    source:
+      abi: Bridge
+      address: '0xA0aFEa6b778fc06669F56Dd9fA3163CEBE18f648'
+      # prettier-ignore
+      startBlock: 13708944
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      abis:
+        - name: Bridge
+          file: ./src/abis/bridge.json
+        - name: Token
+          file: ./src/abis/token.json
+      entities:
+        - BridgeTransfer
+        - Token
+      eventHandlers:
+        - event: TokensBridged(indexed address,uint256,indexed bytes32)
+          handler: handleBridgeTransfer
+        - event: TokensBridgingInitiated(indexed address,uint256,indexed bytes32)
+          handler: handleInitiateTransfer
+      file: ./src/mappings/bridge.ts
+      language: wasm/assemblyscript
+  # prettier-ignore
+
